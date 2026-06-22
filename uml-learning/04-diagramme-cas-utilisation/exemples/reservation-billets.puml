@@ -1,0 +1,18 @@
+@startuml reservation_billets
+left to right direction
+
+actor Client
+actor Administrateur
+
+rectangle "Système de réservation" {
+    Client --> (Rechercher un trajet)
+    Client --> (Réserver un billet)
+    Client --> (Annuler une réservation)
+    Administrateur --> (Gérer les horaires)
+    Administrateur --> (Consulter les statistiques)
+
+    (Réserver un billet) ..> (Payer en ligne) : <<include>>
+    (Annuler une réservation) ..> (Réserver un billet) : <<extend>>
+}
+
+@enduml

@@ -1,0 +1,32 @@
+@startuml bibliotheque
+
+class Livre {
+  -String titre
+  -String isbn
+  -boolean disponible
+  +emprunter()
+  +retourner()
+}
+
+class Membre {
+  -String nom
+  -String idMembre
+  +emprunterLivre(Livre)
+}
+
+class Bibliotheque {
+  -List<Livre> livres
+  +ajouterLivre(Livre)
+  +rechercherLivre(String)
+}
+
+class Emprunt {
+  -Date dateEmprunt
+  -Date dateRetour
+}
+
+Bibliotheque "1" *-- "many" Livre : contient
+Membre "1" --> "many" Emprunt : effectue
+Emprunt "1" --> "1" Livre : concerne
+
+@enduml

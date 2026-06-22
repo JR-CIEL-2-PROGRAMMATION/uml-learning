@@ -1,0 +1,11 @@
+@startuml cycle_commande
+[*] --> EnAttente
+EnAttente --> Confirmee : paiement reçu
+EnAttente --> Annulee : annulation client
+Confirmee --> EnPreparation : stock validé
+EnPreparation --> Expediee : colis envoyé
+Expediee --> Livree : réception confirmée
+Confirmee --> Annulee : annulation client
+Annulee --> [*]
+Livree --> [*]
+@enduml
