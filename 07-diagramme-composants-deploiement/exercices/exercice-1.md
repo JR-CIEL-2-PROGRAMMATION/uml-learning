@@ -21,4 +21,4 @@ Côté infrastructure :
 
 ---
 
-Compare avec [`correction-1.md`](./correction-1.md)
+Compare avec [`correction-1.md`](../../corrections/07-diagramme-composants-deploiement/correction-1.md)

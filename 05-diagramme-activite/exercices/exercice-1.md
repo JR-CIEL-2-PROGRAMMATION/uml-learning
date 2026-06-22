@@ -18,4 +18,4 @@ Dessine ce processus en diagramme d'activité (Mermaid ou PlantUML), avec les bo
 
 ---
 
-Compare avec [`correction-1.md`](./correction-1.md)
+Compare avec [`correction-1.md`](../../corrections/05-diagramme-activite/correction-1.md)
