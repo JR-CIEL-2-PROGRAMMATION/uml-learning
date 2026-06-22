@@ -10,3 +10,5 @@ Thumbs.db
 *.png
 *.svg
 !ressources/**/*.svg
+!**/exemples/*.png
+!**/exemples/*.svg
