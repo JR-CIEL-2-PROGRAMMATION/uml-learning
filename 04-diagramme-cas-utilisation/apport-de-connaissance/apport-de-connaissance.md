@@ -143,32 +143,11 @@ rectangle "Système de bibliothèque" {
 @enduml
 ```
 
----
-
-## 7. Exemple Mermaid (approximation)
-
-Mermaid n'a pas de syntaxe native "use case" — on utilise un graphe orienté :
-
-```mermaid
-graph LR
-    Membre((Membre))
-    Biblio((Bibliothécaire))
-
-    Membre --> RechercherLivre[Rechercher un livre]
-    Membre --> EmprunterLivre[Emprunter un livre]
-    Membre --> RetournerLivre[Retourner un livre]
-    Biblio --> AjouterLivre[Ajouter un livre]
-    Biblio --> GererRetards[Gérer les retards]
-
-    EmprunterLivre -. include .-> VerifierDispo[Vérifier disponibilité]
-    GererRetards -. include .-> EnvoyerNotif[Envoyer une notification]
-    ProlongerEmprunt[Prolonger un emprunt] -. extend .-> EmprunterLivre
-    Membre --> ProlongerEmprunt
-```
+![Diagramme de cas d'utilisation — Système de bibliothèque](../exemples/bibliotheque.png)
 
 ---
 
-## 8. Méthode pour construire un diagramme de cas d'utilisation
+## 7. Méthode pour construire un diagramme de cas d'utilisation
 
 1. **Identifier les acteurs** : qui utilise le système ? qui déclenche des fonctions ? qui en reçoit les résultats ?
 2. **Lister les cas d'utilisation** : pour chaque acteur, demander "qu'est-ce qu'il veut faire ?"
@@ -179,7 +158,7 @@ graph LR
 
 ---
 
-## 9. Erreurs classiques à éviter
+## 8. Erreurs classiques à éviter
 
 | Erreur | Correction |
 |--------|------------|
