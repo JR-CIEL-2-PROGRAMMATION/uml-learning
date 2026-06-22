@@ -1,0 +1,14 @@
+@startuml compte-utilisateur
+[*] --> EnAttenteValidation : inscription soumise
+
+EnAttenteValidation --> Actif : email confirmé
+EnAttenteValidation --> Expiré : délai 7 jours / supprimerDonnées()
+
+Actif --> Suspendu : suspension admin [motif signalé]
+Suspendu --> Actif : réactivation admin
+Actif --> Supprimé : suppression utilisateur
+Suspendu --> Supprimé : suppression utilisateur
+
+Expiré --> [*]
+Supprimé --> [*]
+@enduml

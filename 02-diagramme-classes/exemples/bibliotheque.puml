@@ -1,0 +1,38 @@
+@startuml bibliotheque
+skinparam classAttributeIconSize 0
+
+class Livre {
+    - titre : String
+    - isbn : String
+    - disponible : Boolean
+    + emprunter() : void
+    + retourner() : void
+}
+
+class Membre {
+    - nom : String
+    - idMembre : String
+    - email : String
+    + emprunterLivre(livre : Livre) : void
+    + retournerLivre(livre : Livre) : void
+}
+
+class Bibliotheque {
+    - nom : String
+    - adresse : String
+    + ajouterLivre(livre : Livre) : void
+    + rechercherLivre(titre : String) : Livre
+}
+
+class Emprunt {
+    - dateEmprunt : Date
+    - dateRetourPrevue : Date
+    - dateRetourReelle : Date
+    + estEnRetard() : Boolean
+}
+
+Bibliotheque "1" *-- "0..*" Livre : possède
+Bibliotheque "1" --> "0..*" Membre : inscrit
+Membre "1" --> "0..*" Emprunt : effectue
+Emprunt "1" --> "1" Livre : concerne
+@enduml

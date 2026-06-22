@@ -1,0 +1,19 @@
+@startuml connexion
+actor Utilisateur
+participant Interface
+participant Serveur
+database BaseDeDonnees
+
+Utilisateur -> Interface : saisit identifiants
+Interface -> Serveur : connexion(login, mdp)
+Serveur -> BaseDeDonnees : verifierIdentifiants(login, mdp)
+BaseDeDonnees --> Serveur : résultat (valide/invalide)
+
+alt identifiants valides
+    Serveur --> Interface : token de session
+    Interface --> Utilisateur : accès accordé
+else identifiants invalides
+    Serveur --> Interface : erreur 401
+    Interface --> Utilisateur : message d'erreur
+end
+@enduml

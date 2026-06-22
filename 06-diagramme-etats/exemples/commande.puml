@@ -1,0 +1,19 @@
+@startuml commande
+[*] --> EnAttente : commande créée
+
+EnAttente --> Confirmée : paiement reçu
+EnAttente --> Annulée : annulation client
+EnAttente --> Expirée : délai 30 min dépassé
+
+Confirmée --> EnPréparation : stock validé
+Confirmée --> Annulée : annulation client
+
+EnPréparation --> Expédiée : colis remis au transporteur
+Expédiée --> Livrée : réception confirmée
+Expédiée --> EnLitige : problème signalé
+
+Annulée --> [*]
+Expirée --> [*]
+Livrée --> [*]
+EnLitige --> [*]
+@enduml

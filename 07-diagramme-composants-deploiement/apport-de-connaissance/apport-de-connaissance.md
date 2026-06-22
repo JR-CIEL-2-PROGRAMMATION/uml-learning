@@ -21,101 +21,38 @@ Un **composant** est une unité logicielle autonome et remplaçable (module, bib
 
 ### Éléments clés
 
-| Élément | Rôle |
-|---------|------|
-| **Composant** | Boîte étiquetée `[NomComposant]` — unité logicielle |
-| **Interface fournie** | Ce que le composant **expose** (ex : une API REST) |
-| **Interface requise** | Ce dont le composant **a besoin** pour fonctionner |
-| **Dépendance** | Flèche pointillée — "utilise" |
+| Élément | PlantUML | Rôle |
+|---------|----------|------|
+| **Composant** | `[NomComposant]` | Unité logicielle |
+| **Package** | `package "Nom" { }` | Regroupe des composants |
+| **Base de données** | `database "Nom"` | Stockage de données |
+| **Dépendance** | `[A] --> [B]` | A dépend de B |
 
-### Exemple : architecture d'une application web classique (en couches)
-
-```mermaid
-flowchart LR
-    subgraph Frontend
-        UI[Interface Web\nReact]
-    end
-
-    subgraph Backend
-        API[API REST\nNode.js]
-        Auth[Service\nAuthentification]
-        Metier[Service\nMétier]
-        Cache[Cache\nRedis]
-    end
-
-    subgraph Data
-        DB[(Base de données\nPostgreSQL)]
-    end
-
-    UI -->|HTTP/JSON| API
-    API --> Auth
-    API --> Metier
-    Auth --> DB
-    Metier --> DB
-    Metier --> Cache
-```
-
-### Exemple : architecture microservices
-
-```mermaid
-flowchart TB
-    Client([Client Web/Mobile])
-
-    subgraph API_Gateway
-        GW[API Gateway]
-    end
-
-    subgraph Services
-        SvcUser[Service\nUtilisateurs]
-        SvcProduct[Service\nProduits]
-        SvcOrder[Service\nCommandes]
-        SvcNotif[Service\nNotifications]
-    end
-
-    subgraph Données
-        DBUser[(DB Utilisateurs)]
-        DBProduct[(DB Produits)]
-        DBOrder[(DB Commandes)]
-    end
-
-    subgraph Messaging
-        Queue[File de messages\nRabbitMQ]
-    end
-
-    Client --> GW
-    GW --> SvcUser
-    GW --> SvcProduct
-    GW --> SvcOrder
-    SvcUser --> DBUser
-    SvcProduct --> DBProduct
-    SvcOrder --> DBOrder
-    SvcOrder --> Queue
-    Queue --> SvcNotif
-```
-
-### Notation PlantUML dédiée (plus fidèle à la norme UML)
+### Exemple : architecture d'une application web
 
 ```plantuml
 @startuml
 package "Frontend" {
-    [Interface Web]
+    [Interface Web\n(React)]
 }
 
 package "Backend" {
-    [API REST]
-    [Service Authentification]
-    [Service Commandes]
+    [API REST\n(Node.js)]
+    [Service\nAuthentification]
+    [Service\nCommandes]
 }
 
-database "Base de données" as DB
+database "Base de données\n(PostgreSQL)" as DB
 
-[Interface Web] --> [API REST]
-[API REST] --> [Service Authentification]
-[API REST] --> [Service Commandes]
-[Service Authentification] --> DB
-[Service Commandes] --> DB
+[Interface Web\n(React)] --> [API REST\n(Node.js)] : HTTP/JSON
+[API REST\n(Node.js)] --> [Service\nAuthentification]
+[API REST\n(Node.js)] --> [Service\nCommandes]
+[Service\nAuthentification] --> DB
+[Service\nCommandes] --> DB
 @enduml
 ```
+
+![Diagramme de composants — Application web](../exemples/composants.png)
 
 ---
 
@@ -127,102 +64,47 @@ Le diagramme de déploiement montre la **répartition physique** des composants 
 
 ### Éléments clés
 
-| Élément | Rôle |
-|---------|------|
-| **Nœud** | Machine physique ou virtuelle (serveur, PC, smartphone…) |
-| **Artefact** | Fichier déployé sur un nœud (`.jar`, `.war`, image Docker…) |
-| **Association** | Connexion entre nœuds (protocole, réseau) |
-| **Composant** | Module logiciel s'exécutant sur un nœud |
+| Élément | PlantUML | Rôle |
+|---------|----------|------|
+| **Nœud** | `node "Nom" { }` | Machine physique ou virtuelle |
+| **Artefact** | `artifact "Nom"` | Fichier ou composant déployé |
+| **Base de données** | `database "Nom"` | Système de stockage |
+| **Cloud** | `cloud "Nom" { }` | Service externe / cloud |
+| **Connexion** | `A --> B : protocole` | Lien réseau entre nœuds |
 
-### Exemple : application web déployée classiquement
-
-```mermaid
-flowchart TB
-    subgraph "Poste client"
-        Browser[Navigateur Web]
-    end
-
-    subgraph "Serveur Web (Nginx)"
-        FE[Frontend statique\nHTML/CSS/JS]
-    end
-
-    subgraph "Serveur Application (Node.js)"
-        API[API REST]
-        Auth[Module Auth]
-    end
-
-    subgraph "Serveur Base de données"
-        DB[(PostgreSQL)]
-    end
-
-    subgraph "Service externe"
-        Email[Service Email\nSendGrid]
-    end
-
-    Browser -->|HTTPS| FE
-    FE -->|REST/JSON| API
-    API --> Auth
-    API -->|SQL| DB
-    API -->|SMTP| Email
-```
-
-### Exemple : architecture conteneurisée (Docker / Kubernetes)
-
-```mermaid
-flowchart TB
-    subgraph "Internet"
-        Client([Utilisateur])
-    end
-
-    subgraph "Cluster Kubernetes"
-        subgraph "Pod Frontend"
-            FE[Container : React App]
-        end
-        subgraph "Pod Backend"
-            BE[Container : API Node.js]
-        end
-        subgraph "Pod Cache"
-            Redis[Container : Redis]
-        end
-    end
-
-    subgraph "Cloud Database (RDS)"
-        DB[(PostgreSQL managé)]
-    end
-
-    Client -->|HTTPS| FE
-    FE -->|REST| BE
-    BE --> Redis
-    BE -->|SQL| DB
-```
-
-### Notation PlantUML dédiée
+### Exemple : application web déployée
 
 ```plantuml
 @startuml
-node "Serveur Web" {
-    artifact "Frontend (React)" as FE
+node "Poste client" {
+    artifact "Navigateur Web"
 }
 
-node "Serveur Application" {
-    artifact "API REST (Node.js)" as API
-    artifact "Module Auth" as Auth
+node "Serveur Web\n(Nginx)" {
+    artifact "Frontend statique\n(HTML/CSS/JS)"
 }
 
-node "Serveur BDD" {
-    database "PostgreSQL" as DB
+node "Serveur Application\n(Node.js)" {
+    artifact "API REST"
+    artifact "Module Auth"
 }
 
-cloud "Service Externe" {
-    artifact "SendGrid" as Email
+node "Serveur Base de données" {
+    database "PostgreSQL"
 }
 
-FE --> API : HTTPS
-API --> Auth
-API --> DB : SQL
-API --> Email : SMTP
+cloud "Service externe" {
+    artifact "SendGrid\n(Email)"
+}
+
+"Navigateur Web" --> "Frontend statique\n(HTML/CSS/JS)" : HTTPS
+"Frontend statique\n(HTML/CSS/JS)" --> "API REST" : REST/JSON
+"API REST" --> "PostgreSQL" : SQL
+"API REST" --> "SendGrid\n(Email)" : SMTP
 @enduml
 ```
+
+![Diagramme de déploiement — Application web](../exemples/deploiement.png)
 
 ---
 
@@ -240,7 +122,7 @@ API --> Email : SMTP
 ## 4. Quand les utiliser ?
 
 - **Composants** :
-  - Documenter l'architecture d'une application (monolithique ou microservices)
+  - Documenter l'architecture d'une application
   - Identifier les dépendances entre modules
   - Concevoir les interfaces entre équipes (front, back, données)
 
@@ -262,7 +144,7 @@ API --> Email : SMTP
 ### Pour le diagramme de déploiement
 1. **Lister les nœuds physiques** (serveurs, machines, conteneurs).
 2. **Placer les composants** sur les nœuds qui les hébergent.
-3. **Tracer les connexions réseau** entre nœuds (protocole, port si utile).
+3. **Tracer les connexions réseau** entre nœuds (protocole si utile).
 4. **Indiquer les artefacts** si nécessaire (fichiers déployés).
 
 ---
@@ -273,7 +155,7 @@ API --> Email : SMTP
 |--------|------------|
 | Confondre composant et classe | Un composant = **module déployable**, pas une classe |
 | Mettre trop de détails techniques | Rester à un niveau d'abstraction **architectural** |
-| Oublier les protocoles sur les connexions | Annoter les flèches avec le protocole (HTTPS, SQL, AMQP…) |
+| Oublier les protocoles sur les connexions | Annoter les flèches avec le protocole (HTTPS, SQL…) |
 | Ne pas distinguer logique et physique | Faire **deux diagrammes** séparés |
 
 ---
@@ -283,5 +165,4 @@ API --> Email : SMTP
 - **Composants** = vue **logique** (qui dépend de qui dans le code)
 - **Déploiement** = vue **physique** (qui tourne où)
 - Ces diagrammes sont essentiels pour documenter une architecture système
-- PlantUML est plus adapté que Mermaid pour ces deux diagrammes (notation dédiée)
 - En entreprise : indispensables dans les dossiers d'architecture technique (DAT)

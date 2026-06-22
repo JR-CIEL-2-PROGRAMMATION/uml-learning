@@ -49,42 +49,44 @@ Une classe se représente par un rectangle à **3 compartiments** :
 ### Classe abstraite
 Une classe abstraite **ne peut pas être instanciée directement** — elle sert de modèle à ses sous-classes. Son nom est en *italique* ou marqué `{abstract}`.
 
-```mermaid
-classDiagram
-    class Forme {
-        <<abstract>>
-        +calculerSurface() float
-        +calculerPerimetre() float
-    }
-    class Cercle {
-        -float rayon
-        +calculerSurface() float
-        +calculerPerimetre() float
-    }
-    class Rectangle {
-        -float largeur
-        -float hauteur
-        +calculerSurface() float
-        +calculerPerimetre() float
-    }
-    Forme <|-- Cercle
-    Forme <|-- Rectangle
+```plantuml
+@startuml
+abstract class Forme {
+    + calculerSurface() : Float
+    + calculerPerimetre() : Float
+}
+class Cercle {
+    - rayon : Float
+    + calculerSurface() : Float
+    + calculerPerimetre() : Float
+}
+class Rectangle {
+    - largeur : Float
+    - hauteur : Float
+    + calculerSurface() : Float
+    + calculerPerimetre() : Float
+}
+Forme <|-- Cercle
+Forme <|-- Rectangle
+@enduml
 ```
+
+![Héritage - Formes géométriques](../exemples/heritage.png)
 
 ### Interface
 Une interface définit un **contrat** (méthodes sans implémentation). Une classe qui "implémente" une interface s'engage à fournir toutes ses méthodes.
 
-```mermaid
-classDiagram
-    class Exportable {
-        <<interface>>
-        +exporter(format: String) void
-    }
-    class Rapport {
-        -String contenu
-        +exporter(format: String) void
-    }
-    Exportable <|.. Rapport
+```plantuml
+@startuml
+interface Exportable {
+    + exporter(format : String) : void
+}
+class Rapport {
+    - contenu : String
+    + exporter(format : String) : void
+}
+Exportable <|.. Rapport
+@enduml
 ```
 
 ---
@@ -96,77 +98,81 @@ C'est la partie la plus importante — et la plus piégée.
 ### 3.1 Association
 Lien simple et générique entre deux classes ("utilise", "connaît", "est relié à").
 
-```mermaid
-classDiagram
-    Etudiant --> Cours : suit
+```plantuml
+@startuml
+Etudiant --> Cours : suit
+@enduml
 ```
 
 ### 3.2 Agrégation (losange vide ◇)
 Relation "a un" **faible** : les objets peuvent exister séparément. Si le tout disparaît, les parties survivent.
 
-```mermaid
-classDiagram
-    Equipe "1" o-- "0..*" Joueur : est composée de
+```plantuml
+@startuml
+Equipe "1" o-- "0..*" Joueur : est composée de
+@enduml
 ```
 *Un joueur peut exister sans équipe (transfert, arrêt…).*
 
 ### 3.3 Composition (losange plein ◆)
 Relation "a un" **forte** : la partie ne peut pas exister sans le tout. Si le tout est détruit, les parties le sont aussi.
 
-```mermaid
-classDiagram
-    Maison "1" *-- "1..*" Piece : contient
+```plantuml
+@startuml
+Maison "1" *-- "1..*" Piece : contient
+@enduml
 ```
 *Une pièce n'existe pas sans la maison.*
 
 > **Astuce pour différencier agrégation et composition :**
-> Pose-toi la question : "Si je supprime le tout, la partie a-t-elle encore un sens ?" 
+> Pose-toi la question : "Si je supprime le tout, la partie a-t-elle encore un sens ?"
 > - Oui → agrégation
 > - Non → composition
 
 ### 3.4 Héritage / Généralisation (triangle vide)
 Relation "est un". La classe fille hérite des attributs et méthodes de la classe mère.
 
-```mermaid
-classDiagram
-    class Animal {
-        -String nom
-        +manger() void
-        +dormir() void
-    }
-    class Chien {
-        +aboyer() void
-    }
-    class Chat {
-        +ronronner() void
-    }
-    Animal <|-- Chien
-    Animal <|-- Chat
+```plantuml
+@startuml
+class Animal {
+    - nom : String
+    + manger() : void
+    + dormir() : void
+}
+class Chien {
+    + aboyer() : void
+}
+class Chat {
+    + ronronner() : void
+}
+Animal <|-- Chien
+Animal <|-- Chat
+@enduml
 ```
 
 ### 3.5 Réalisation / Implémentation (flèche pointillée)
 Une classe implémente les méthodes définies par une interface.
 
-```mermaid
-classDiagram
-    class Serializable {
-        <<interface>>
-        +serialiser() String
-        +deserialiser(data: String) void
-    }
-    Serializable <|.. Utilisateur
-    Serializable <|.. Produit
+```plantuml
+@startuml
+interface Serializable {
+    + serialiser() : String
+    + deserialiser(data : String) : void
+}
+Serializable <|.. Utilisateur
+Serializable <|.. Produit
+@enduml
 ```
 
 ### Tableau récapitulatif
 
-| Relation | Mermaid | Force du lien | Question clé |
-|----------|---------|---------------|--------------|
-| Association | `-->` | faible | "utilise" |
-| Agrégation | `o--` | moyenne | "a un" (survie indépendante) |
-| Composition | `*--` | forte | "est constitué de" (même durée de vie) |
-| Héritage | `<|--` | — | "est un" |
-| Réalisation | `<|..` | — | "implémente" |
+| Relation | PlantUML | Force du lien | Question clé |
+|----------|----------|---------------|--------------|
+| Association | `A --> B` | faible | "utilise" |
+| Agrégation | `A o-- B` | moyenne | "a un" (survie indépendante) |
+| Composition | `A *-- B` | forte | "est constitué de" (même durée de vie) |
+| Héritage | `A <|-- B` | — | "est un" |
+| Réalisation | `A <|.. B` | — | "implémente" |
 
 ---
 
@@ -184,11 +190,12 @@ Elles se placent aux **extrémités** des relations et précisent combien d'inst
 
 ### Exemple commenté
 
-```mermaid
-classDiagram
-    Client "1" --> "0..*" Commande : passe
-    Commande "1" *-- "1..*" LigneCommande : contient
-    LigneCommande "1..*" --> "1" Produit : porte sur
+```plantuml
+@startuml
+Client "1" --> "0..*" Commande : passe
+Commande "1" *-- "1..*" LigneCommande : contient
+LigneCommande "1..*" --> "1" Produit : porte sur
+@enduml
 ```
 
 Lecture :
@@ -207,54 +214,56 @@ Lecture :
 3. **Souligner les adjectifs** → candidats à devenir des attributs.
 4. Éliminer les classes trop génériques ou les synonymes.
 
-**Exemple :**  
+**Exemple :**
 *"Un **client** peut passer plusieurs **commandes**. Chaque commande contient des **produits** avec une **quantité**."*
 
-→ Classes identifiées : `Client`, `Commande`, `Produit`  
-→ Attribut candidat : `quantite` (sur la relation ou dans `LigneCommande`)  
+→ Classes identifiées : `Client`, `Commande`, `Produit`
+→ Attribut candidat : `quantite` (sur la relation ou dans `LigneCommande`)
 → Relation : `Client` passe `Commande` ; `Commande` contient `Produit`
 
 ---
 
 ## 6. Exemple complet : système de bibliothèque
 
-```mermaid
-classDiagram
-    class Livre {
-        -String titre
-        -String isbn
-        -boolean disponible
-        +emprunter() void
-        +retourner() void
-    }
+```plantuml
+@startuml
+skinparam classAttributeIconSize 0
 
-    class Membre {
-        -String nom
-        -String idMembre
-        -String email
-        +emprunterLivre(livre: Livre) void
-        +retournerLivre(livre: Livre) void
-    }
+class Livre {
+    - titre : String
+    - isbn : String
+    - disponible : Boolean
+    + emprunter() : void
+    + retourner() : void
+}
+class Membre {
+    - nom : String
+    - idMembre : String
+    - email : String
+    + emprunterLivre(livre : Livre) : void
+    + retournerLivre(livre : Livre) : void
+}
+class Bibliotheque {
+    - nom : String
+    - adresse : String
+    + ajouterLivre(livre : Livre) : void
+    + rechercherLivre(titre : String) : Livre
+}
+class Emprunt {
+    - dateEmprunt : Date
+    - dateRetourPrevue : Date
+    - dateRetourReelle : Date
+    + estEnRetard() : Boolean
+}
 
-    class Bibliotheque {
-        -String nom
-        -String adresse
-        +ajouterLivre(livre: Livre) void
-        +rechercherLivre(titre: String) Livre
-    }
-
-    class Emprunt {
-        -Date dateEmprunt
-        -Date dateRetourPrevue
-        -Date dateRetourReelle
-        +estEnRetard() boolean
-    }
-
-    Bibliotheque "1" *-- "0..*" Livre : possède
-    Membre "1" --> "0..*" Emprunt : effectue
-    Emprunt "1" --> "1" Livre : concerne
-    Bibliotheque "1" --> "0..*" Membre : inscrit
+Bibliotheque "1" *-- "0..*" Livre : possède
+Bibliotheque "1" --> "0..*" Membre : inscrit
+Membre "1" --> "0..*" Emprunt : effectue
+Emprunt "1" --> "1" Livre : concerne
+@enduml
 ```
+
+![Diagramme de classes — Système de bibliothèque](../exemples/bibliotheque.png)
 
 ---
 

@@ -1,0 +1,27 @@
+@startuml deploiement
+node "Poste client" {
+    artifact "Navigateur Web"
+}
+
+node "Serveur Web\n(Nginx)" {
+    artifact "Frontend statique\n(HTML/CSS/JS)"
+}
+
+node "Serveur Application\n(Node.js)" {
+    artifact "API REST"
+    artifact "Module Auth"
+}
+
+node "Serveur Base de données" {
+    database "PostgreSQL"
+}
+
+cloud "Service externe" {
+    artifact "SendGrid\n(Email)"
+}
+
+"Navigateur Web" --> "Frontend statique\n(HTML/CSS/JS)" : HTTPS
+"Frontend statique\n(HTML/CSS/JS)" --> "API REST" : REST/JSON
+"API REST" --> "PostgreSQL" : SQL
+"API REST" --> "SendGrid\n(Email)" : SMTP
+@enduml

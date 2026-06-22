@@ -1,0 +1,19 @@
+@startuml composants
+package "Frontend" {
+    [Interface Web\n(React)]
+}
+
+package "Backend" {
+    [API REST\n(Node.js)]
+    [Service\nAuthentification]
+    [Service\nCommandes]
+}
+
+database "Base de données\n(PostgreSQL)" as DB
+
+[Interface Web\n(React)] --> [API REST\n(Node.js)] : HTTP/JSON
+[API REST\n(Node.js)] --> [Service\nAuthentification]
+[API REST\n(Node.js)] --> [Service\nCommandes]
+[Service\nAuthentification] --> DB
+[Service\nCommandes] --> DB
+@enduml

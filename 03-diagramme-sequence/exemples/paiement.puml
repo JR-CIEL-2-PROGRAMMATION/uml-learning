@@ -1,0 +1,20 @@
+@startuml paiement
+actor Client
+participant SiteWeb
+participant ServicePaiement
+database Banque
+
+Client -> SiteWeb : cliquer sur "Payer"
+SiteWeb -> ServicePaiement : initierPaiement(montant, carte)
+ServicePaiement -> Banque : autoriserTransaction(carte, montant)
+
+alt transaction autorisée
+    Banque --> ServicePaiement : autorisation OK
+    ServicePaiement --> SiteWeb : paiement accepté
+    SiteWeb --> Client : confirmation + numéro commande
+else transaction refusée
+    Banque --> ServicePaiement : refus
+    ServicePaiement --> SiteWeb : paiement refusé
+    SiteWeb --> Client : message d'erreur
+end
+@enduml
