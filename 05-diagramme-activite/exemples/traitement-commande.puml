@@ -1,0 +1,20 @@
+@startuml traitement-commande
+start
+
+:Recevoir la commande;
+
+if (Stock disponible ?) then (Oui)
+    :Préparer la commande;
+    fork
+        :Générer la facture;
+    fork again
+        :Réserver le transporteur;
+    end fork
+    :Expédier la commande;
+    :Envoyer email de confirmation;
+else (Non)
+    :Notifier le client\n(rupture de stock);
+endif
+
+stop
+@enduml

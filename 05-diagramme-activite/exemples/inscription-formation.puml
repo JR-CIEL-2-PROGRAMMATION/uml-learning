@@ -1,0 +1,25 @@
+@startuml inscription-formation
+|Candidat|
+start
+:Remplir le formulaire\nd'inscription;
+
+|Système|
+if (Places disponibles ?) then (Oui)
+    |Candidat|
+    :Procéder au paiement;
+
+    |Système|
+    if (Paiement réussi ?) then (Oui)
+        :Envoyer confirmation;
+        :Réserver une place;
+    else (Non)
+        :Afficher message d'erreur;
+        |Candidat|
+        :Procéder au paiement;
+    endif
+else (Non)
+    :Mettre sur liste d'attente;
+endif
+
+stop
+@enduml

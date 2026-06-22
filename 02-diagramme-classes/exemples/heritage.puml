@@ -1,0 +1,24 @@
+@startuml heritage
+skinparam classAttributeIconSize 0
+
+abstract class Forme {
+    + calculerSurface() : Float
+    + calculerPerimetre() : Float
+}
+
+class Cercle {
+    - rayon : Float
+    + calculerSurface() : Float
+    + calculerPerimetre() : Float
+}
+
+class Rectangle {
+    - largeur : Float
+    - hauteur : Float
+    + calculerSurface() : Float
+    + calculerPerimetre() : Float
+}
+
+Forme <|-- Cercle
+Forme <|-- Rectangle
+@enduml
