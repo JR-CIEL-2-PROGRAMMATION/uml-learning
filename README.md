@@ -3,7 +3,7 @@
 Dépôt personnel pour apprendre et pratiquer les notions d'**UML** (Unified Modeling Language).
 
 Chaque chapitre contient :
-- 📝 `notes.md` → le cours / les notions clés
+- 📝 `apport-de-connaissance.md` → le cours / les notions clés
 - 🖼️ `exemples/` → des diagrammes d'exemple en **Mermaid** et **PlantUML**
 - ✏️ `exercices/` → des exercices à faire seul (les corrections sont disponibles auprès de l'enseignant)
 
@@ -11,13 +11,13 @@ Chaque chapitre contient :
 
 | # | Chapitre | Lien |
 |---|----------|------|
-| 01 | Introduction à UML | [01-introduction](./01-introduction/notes.md) |
-| 02 | Diagramme de classes | [02-diagramme-classes](./02-diagramme-classes/notes.md) |
-| 03 | Diagramme de séquence | [03-diagramme-sequence](./03-diagramme-sequence/notes.md) |
-| 04 | Diagramme de cas d'utilisation | [04-diagramme-cas-utilisation](./04-diagramme-cas-utilisation/notes.md) |
-| 05 | Diagramme d'activité | [05-diagramme-activite](./05-diagramme-activite/notes.md) |
-| 06 | Diagramme d'états | [06-diagramme-etats](./06-diagramme-etats/notes.md) |
-| 07 | Diagrammes de composants & déploiement | [07-diagramme-composants-deploiement](./07-diagramme-composants-deploiement/notes.md) |
+| 01 | Introduction à UML | [01-introduction](./01-introduction/apport-de-connaissance.md) |
+| 02 | Diagramme de classes | [02-diagramme-classes](./02-diagramme-classes/apport-de-connaissance.md) |
+| 03 | Diagramme de séquence | [03-diagramme-sequence](./03-diagramme-sequence/apport-de-connaissance.md) |
+| 04 | Diagramme de cas d'utilisation | [04-diagramme-cas-utilisation](./04-diagramme-cas-utilisation/apport-de-connaissance.md) |
+| 05 | Diagramme d'activité | [05-diagramme-activite](./05-diagramme-activite/apport-de-connaissance.md) |
+| 06 | Diagramme d'états | [06-diagramme-etats](./06-diagramme-etats/apport-de-connaissance.md) |
+| 07 | Diagrammes de composants & déploiement | [07-diagramme-composants-deploiement](./07-diagramme-composants-deploiement/apport-de-connaissance.md) |
 
 ## Outils utilisés
 
