@@ -23,4 +23,4 @@ Modélise un système simple de commande e-commerce avec les règles suivantes :
 
 ---
 
-Une fois que tu as essayé, compare avec [`correction-1.md`](../../corrections/02-diagramme-classes/correction-1.md)
+Une fois que tu as essayé, La correction est disponible auprès de ton enseignant.

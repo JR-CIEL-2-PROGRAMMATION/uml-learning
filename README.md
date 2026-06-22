@@ -5,8 +5,7 @@ Dépôt personnel pour apprendre et pratiquer les notions d'**UML** (Unified Mod
 Chaque chapitre contient :
 - 📝 `notes.md` → le cours / les notions clés
 - 🖼️ `exemples/` → des diagrammes d'exemple en **Mermaid** et **PlantUML**
-- ✏️ `exercices/` → des exercices à faire seul (sans corrections)
-- 📂 [`corrections/`](./corrections/) → toutes les corrections, regroupées par chapitre
+- ✏️ `exercices/` → des exercices à faire seul (les corrections sont disponibles auprès de l'enseignant)
 
 ## Sommaire
 

@@ -21,4 +21,4 @@ Dessine ce scénario en diagramme de séquence (Mermaid ou PlantUML), en utilisa
 
 ---
 
-Compare avec [`correction-1.md`](../../corrections/03-diagramme-sequence/correction-1.md)
+La correction est disponible auprès de ton enseignant.

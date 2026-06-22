@@ -17,4 +17,4 @@ Dessine le diagramme d'états correspondant.
 
 ---
 
-Compare avec [`correction-1.md`](../../corrections/06-diagramme-etats/correction-1.md)
+La correction est disponible auprès de ton enseignant.

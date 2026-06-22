@@ -19,4 +19,4 @@ Une bibliothèque veut une application avec les fonctionnalités suivantes :
 
 ---
 
-Compare avec [`correction-1.md`](../../corrections/04-diagramme-cas-utilisation/correction-1.md)
+La correction est disponible auprès de ton enseignant.
