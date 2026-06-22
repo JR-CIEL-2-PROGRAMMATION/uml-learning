@@ -1,7 +1,0 @@
-@startuml architecture_composants
-[Interface Web] --> [API REST]
-[API REST] --> [Service Authentification]
-[API REST] --> [Service Commandes]
-[Service Authentification] --> [Base de données]
-[Service Commandes] --> [Base de données]
-@enduml
