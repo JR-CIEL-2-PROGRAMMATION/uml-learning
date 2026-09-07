@@ -1,0 +1,12 @@
+@startuml traitement_commande
+start
+:Recevoir la commande;
+if (Stock disponible ?) then (oui)
+  :Préparer la commande;
+  :Expédier la commande;
+  :Envoyer confirmation;
+else (non)
+  :Notifier rupture de stock;
+endif
+stop
+@enduml

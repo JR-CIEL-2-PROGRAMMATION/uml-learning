@@ -1,0 +1,19 @@
+@startuml connexion
+actor Utilisateur
+participant Interface
+participant Serveur
+participant BaseDeDonnees
+
+Utilisateur -> Interface : saisit identifiants
+Interface -> Serveur : connexion(login, mdp)
+Serveur -> BaseDeDonnees : vérifierIdentifiants()
+BaseDeDonnees --> Serveur : résultat
+
+alt identifiants valides
+    Serveur --> Interface : token de session
+    Interface --> Utilisateur : accès accordé
+else invalides
+    Serveur --> Interface : erreur
+    Interface --> Utilisateur : message d'erreur
+end
+@enduml
